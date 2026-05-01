@@ -1,0 +1,14 @@
+.registrationPage {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: radial-gradient(circle, #0a192f 0%, #020c1b 100%);
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.registrationFormContainer {
+  width: 100%;
+  max-width: 450px;
+}

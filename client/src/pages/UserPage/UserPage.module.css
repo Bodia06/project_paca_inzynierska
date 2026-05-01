@@ -1,0 +1,404 @@
+.userPage {
+  padding: 40px 20px;
+  background: radial-gradient(circle at 0% 0%, #1e293b 0%, #0f172a 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #f1f5f9;
+  font-family:
+    'Inter',
+    system-ui,
+    -apple-system,
+    sans-serif;
+}
+
+.userCard {
+  width: 100%;
+  max-width: 1000px;
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.6);
+  overflow: hidden;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.userHeader {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.userCover {
+  height: 180px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #6366f1 100%);
+  opacity: 0.9;
+  position: relative;
+}
+
+.userCover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23ffffff' fill-opacity='0.1'/%3E%3C/svg%3E");
+}
+
+.userHeaderTitle {
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 24px;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 5;
+  white-space: nowrap;
+}
+
+.userHeaderContent {
+  display: flex;
+  gap: 28px;
+  align-items: flex-end;
+  padding: 0 40px;
+  transform: translateY(-40px);
+  position: relative;
+  z-index: 4;
+}
+
+.userAvatarWrapper {
+  background: #0f172a;
+  padding: 6px;
+  border-radius: 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  flex-shrink: 0;
+}
+
+.userAvatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 22px;
+  object-fit: cover;
+  display: block;
+}
+
+.userMainInfo {
+  padding-bottom: 10px;
+  overflow: hidden;
+}
+
+.userName {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  margin-top: 8px;
+  display: inline-block;
+  padding: 5px 14px;
+  background: rgba(14, 165, 233, 0.2);
+  color: #38bdf8;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  border-radius: 8px;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+.userGrid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 40px;
+  padding: 0 40px 40px 40px;
+}
+
+.userInfo {
+  min-width: 0;
+}
+
+.userSectionTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: #64748b;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.userSectionTitle::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), transparent);
+}
+
+.userInfoRow {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.3s ease;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.userInfoRow:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(14, 165, 233, 0.3);
+  transform: translateX(4px);
+}
+
+.userInfoLabel {
+  font-size: 10px;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.userInfoValue {
+  margin: 0;
+  font-size: 15px;
+  color: #e2e8f0;
+  font-weight: 500;
+  word-break: break-all;
+}
+
+.userSidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.userWidget {
+  background: rgba(15, 23, 42, 0.3);
+  border-radius: 24px;
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.userLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.userStat,
+.userBalance,
+.userRatingValue {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 38px;
+  font-weight: 900;
+  margin-bottom: 20px;
+  color: #fff;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 30px rgba(14, 165, 233, 0.2);
+  flex-wrap: wrap;
+}
+
+.userCurrency {
+  font-size: 24px;
+  color: #0ea5e9;
+  font-weight: 700;
+}
+
+.userUnit {
+  font-size: 12px;
+  font-weight: 800;
+  color: #38bdf8;
+  background: rgba(14, 165, 233, 0.1);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.userMaxRating {
+  font-size: 16px;
+  color: #475569;
+  font-weight: 600;
+}
+
+.userBar {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.userFill {
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #6366f1);
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+  width: var(--rating-width, 0%);
+}
+
+.userLowRating {
+  color: #ef4444;
+}
+.userMidRating {
+  color: #f59e0b;
+}
+.userHighRating {
+  color: #10b981;
+}
+
+.userPrimaryBtn,
+.userPrimaryBtn:link,
+.userPrimaryBtn:visited {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.userPrimaryBtn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.4);
+}
+
+.userSettings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s ease;
+}
+
+.userSettings:hover {
+  background: rgba(255, 255, 255, 0.06);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #0f172a;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(14, 165, 233, 0.1);
+  border-left-color: #0ea5e9;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 960px) {
+  .userGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 0 24px 40px 24px;
+  }
+  .userSidebar {
+    order: -1;
+  }
+  .userHeaderContent {
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-50px);
+    gap: 16px;
+    padding: 0 20px;
+  }
+  .userMainInfo {
+    text-align: center;
+    width: 100%;
+  }
+  .userName {
+    font-size: 28px;
+    white-space: normal;
+  }
+  .userAvatar {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .userPage {
+    padding: 20px 10px;
+  }
+  .userCard {
+    border-radius: 20px;
+  }
+  .userCover {
+    height: 140px;
+  }
+  .userHeaderTitle {
+    font-size: 13px;
+    top: 20px;
+    padding: 6px 16px;
+  }
+  .userGrid {
+    padding: 0 16px 24px 16px;
+  }
+  .userStat,
+  .userBalance,
+  .userRatingValue {
+    font-size: 28px;
+  }
+  .userInfoRow {
+    padding: 12px 16px;
+  }
+}

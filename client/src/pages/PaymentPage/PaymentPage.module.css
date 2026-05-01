@@ -1,0 +1,244 @@
+.pageWrapper {
+  padding: clamp(80px, 10vh, 120px) clamp(10px, 3vw, 30px);
+  background: radial-gradient(
+    circle at 50% -20%,
+    rgba(14, 165, 233, 0.2) 0%,
+    rgba(15, 23, 42, 1) 80%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+}
+
+.mainLayout {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(30px, 5vh, 60px);
+}
+
+.heroSection {
+  text-align: center;
+  animation: fadeInDown 0.8s ease-out;
+}
+
+.badge {
+  color: #0ea5e9;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  background: rgba(14, 165, 233, 0.1);
+  padding: 8px 16px;
+  border-radius: 50px;
+  border: 1px solid rgba(14, 165, 233, 0.2);
+}
+
+.title {
+  font-size: clamp(28px, 5vw, 54px);
+  font-weight: 900;
+  margin: 20px 0 10px;
+  color: #fff;
+  line-height: 1.1;
+}
+
+.subtitle {
+  color: #94a3b8;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: clamp(14px, 1.2vw, 17px);
+  line-height: 1.6;
+}
+
+.glassCard {
+  display: flex;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-radius: clamp(20px, 4vw, 40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 50px 100px -20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.visualSide {
+  flex: 1;
+  background: rgba(15, 23, 42, 0.3);
+  padding: clamp(30px, 5vw, 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(30px, 4vw, 50px);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.cardScaler {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cardWrapper {
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.6));
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.balanceInfo {
+  text-align: center;
+}
+
+.balanceInfo label {
+  color: #64748b;
+  text-transform: uppercase;
+  font-size: clamp(10px, 0.8vw, 11px);
+  letter-spacing: 2px;
+  font-weight: 700;
+}
+
+.moneyValue {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  color: #0ea5e9;
+  text-shadow: 0 0 30px rgba(14, 165, 233, 0.4);
+  line-height: 1;
+}
+
+.formSide {
+  flex: 1.2;
+  padding: clamp(30px, 5vw, 60px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fieldWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 105px;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: clamp(11px, 1vw, 13px);
+  color: #94a3b8;
+  font-weight: 600;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.doubleRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(15px, 2vw, 25px);
+  align-items: flex-start;
+}
+
+.btnDeposit,
+.btnWithdraw {
+  padding: clamp(14px, 2vw, 20px);
+  border-radius: 16px;
+  font-size: clamp(14px, 1vw, 16px);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.btnDeposit {
+  background: linear-gradient(135deg, #0ea5e9, #2563eb);
+  color: white;
+}
+.btnWithdraw {
+  background: linear-gradient(135deg, #a78bfa, #7c3aed);
+  color: white;
+}
+
+.btnDeposit:hover,
+.btnWithdraw:hover {
+  transform: translateY(-5px);
+  filter: brightness(1.1);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.statusAlert {
+  padding: 16px;
+  border-radius: 16px;
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.error {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1000px) {
+  .glassCard {
+    flex-direction: column;
+  }
+  .visualSide {
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+}
+
+@media (max-width: 480px) {
+  .cardWrapper {
+    transform: scale(0.8);
+    margin: -25px 0;
+  }
+  .visualSide,
+  .formSide {
+    padding: 30px 20px;
+  }
+  .doubleRow {
+    grid-template-columns: 1fr;
+  }
+  .fieldWrapper {
+    min-height: 100px;
+  }
+}

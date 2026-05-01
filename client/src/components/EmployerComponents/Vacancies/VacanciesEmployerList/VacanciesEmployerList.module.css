@@ -1,0 +1,97 @@
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 420px;
+  scroll-margin-top: 100px;
+}
+
+.listWrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 456px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.InfoManagerListWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.loadingState,
+.infoNoData,
+.errorState {
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 24px;
+  padding: 60px 20px;
+  min-height: 456px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(14, 165, 233, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.noDataIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  background: rgba(14, 165, 233, 0.05);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  margin-bottom: 2rem;
+  color: #0ea5e9;
+  animation: morph 8s ease-in-out infinite;
+}
+
+.noDataIcon {
+  font-size: 40px;
+  filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.4));
+}
+
+.noDataText {
+  color: #f1f5f9;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.noDataSub {
+  color: #94a3b8;
+  font-size: 1rem;
+  max-width: 320px;
+  line-height: 1.5;
+}
+
+.loadingText {
+  margin-top: 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes morph {
+  0%,
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%;
+  }
+  50% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}

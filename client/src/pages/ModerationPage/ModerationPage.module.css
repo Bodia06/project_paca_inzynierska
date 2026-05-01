@@ -1,0 +1,123 @@
+.moderationPageWrapper {
+  display: flex;
+  flex: 1;
+  color: #f1f5f9;
+  width: 100%;
+}
+
+.sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(14, 165, 233, 0.1);
+  padding: 2.5rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.navMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  position: sticky;
+  top: 100px;
+}
+
+.navItem {
+  background: transparent;
+  border: 1px solid transparent;
+  color: #94a3b8;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-weight: 500;
+  width: 100%;
+}
+
+.navItem:hover {
+  background: rgba(14, 165, 233, 0.05);
+  color: #f1f5f9;
+  padding-left: 1.25rem;
+}
+
+.navItem.active {
+  background: rgba(14, 165, 233, 0.1);
+  color: #0ea5e9;
+  border-color: rgba(14, 165, 233, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.linkText {
+  white-space: nowrap;
+  font-size: 0.95rem;
+}
+
+.contentArea {
+  flex: 1;
+  padding: 3rem;
+  min-width: 0;
+  animation: slideIn 0.4s ease-out;
+}
+
+.placeholder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  color: #64748b;
+  font-style: italic;
+  font-size: 1.1rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .moderationPageWrapper {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid rgba(14, 165, 233, 0.1);
+    padding: 1.25rem;
+    position: static;
+  }
+
+  .navMenu {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: static;
+    max-width: 100%;
+  }
+
+  .navItem {
+    width: auto;
+    text-align: center;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .navItem:hover {
+    padding-left: 1.25rem;
+  }
+
+  .contentArea {
+    width: 100%;
+    padding: 2rem 1rem;
+  }
+}

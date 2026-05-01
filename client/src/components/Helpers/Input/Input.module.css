@@ -1,0 +1,82 @@
+.inputGroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputField {
+  width: 100%;
+  background: #0f172a;
+  border: 1.5px solid #1e293b;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #f8fafc;
+  font-size: 15px;
+  transition: all 0.2s ease-in-out;
+}
+
+select.inputField {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+  padding-right: 40px;
+}
+
+.inputGroup:has(select)::after {
+  content: '';
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 6px;
+  background-color: #00d2ff;
+  clip-path: polygon(100% 0%, 0% 0%, 50% 100%);
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.inputGroup:focus-within:has(select)::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.inputField.inputError {
+  border-color: #fb7185;
+  background: rgba(251, 113, 133, 0.05);
+}
+
+.inputField:focus {
+  outline: none;
+  border-color: #00d2ff;
+  box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+}
+
+select.inputField option {
+  background: #1e293b;
+  color: #f8fafc;
+  padding: 10px;
+}
+
+.errorText {
+  display: block;
+  color: #fb7185;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 6px;
+  margin-bottom: -4px;
+  padding-left: 4px;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

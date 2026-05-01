@@ -1,0 +1,240 @@
+.formWrapper {
+  background: #050a18;
+  padding: 40px 30px;
+  border-radius: 24px;
+  border: 1px solid #1e293b;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  position: relative;
+  color: #ffffff;
+  width: 95%;
+  max-width: 450px;
+  margin: 40px auto;
+}
+
+.formWrapper::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: linear-gradient(45deg, #00d2ff, #0072ff, #00d2ff);
+  z-index: -1;
+  border-radius: 25px;
+  opacity: 0.3;
+  filter: blur(8px);
+}
+
+.backBtn {
+  cursor: pointer;
+  border: none;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(30, 41, 59, 0.8);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.backBtn:hover {
+  color: #00d2ff;
+  background: rgba(0, 210, 255, 0.1);
+}
+
+.title {
+  text-align: center;
+  font-size: clamp(22px, 5vw, 28px);
+  font-weight: 800;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  color: #f8fafc;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.serverError {
+  background: rgba(251, 113, 133, 0.1);
+  border: 1px solid rgba(251, 113, 133, 0.4);
+  color: #fb7185;
+  padding: 12px;
+  border-radius: 12px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: shake 0.4s ease-in-out;
+}
+
+.checkboxContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+  width: fit-content;
+}
+
+.checkboxText {
+  color: #94a3b8;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.checkboxLabel:hover .checkboxText {
+  color: #f8fafc;
+}
+
+.checkboxInput {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgba(30, 41, 59, 0.5);
+  border: 2px solid #1e293b;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.checkboxInput:checked {
+  background: #00d2ff;
+  border-color: #00d2ff;
+  box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
+}
+
+.checkboxInput:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #050a18;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkboxInput:focus-visible {
+  outline: 2px solid #0072ff;
+  outline-offset: 2px;
+}
+
+.checkboxError {
+  color: #fb7185;
+  font-size: 12px;
+  font-weight: 500;
+  padding-left: 32px;
+  animation: slideIn 0.2s ease-out;
+}
+
+.submitBtn {
+  margin-top: 5px;
+  background: linear-gradient(135deg, #00d2ff 0%, #0072ff 100%);
+  color: #ffffff;
+  border: none;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.submitBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 114, 255, 0.4);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+@media (max-height: 700px) {
+  .formWrapper {
+    margin: 10px auto;
+    padding-top: 40px;
+  }
+
+  .title {
+    margin-bottom: 20px;
+    margin-top: 10px;
+  }
+
+  .formContainer {
+    gap: 15px;
+  }
+}
+
+.footerLink {
+  text-align: center;
+  font-size: 14px;
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+.footerLink a {
+  color: #00d2ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .formWrapper {
+    padding: 35px 20px 25px;
+    margin: 15px auto;
+    border-radius: 20px;
+  }
+
+  .formContainer {
+    gap: 20px;
+  }
+
+  .submitBtn {
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  .backBtn span {
+    display: none;
+  }
+
+  .backBtn {
+    padding: 8px;
+  }
+}

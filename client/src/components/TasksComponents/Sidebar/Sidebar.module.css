@@ -1,0 +1,187 @@
+.sidebar {
+  width: 360px;
+  min-width: 360px;
+  top: 20px;
+  height: calc(100vh - 240px);
+  margin: 20px 0 20px 20px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 28px;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebarContent {
+  padding: 32px 24px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mobileToggleBtn {
+  display: none;
+}
+
+.header {
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+}
+
+.logoArea {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.iconBox {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  min-width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 16px rgba(14, 165, 233, 0.2);
+}
+
+.brandName {
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.progressContainer {
+  background: rgba(30, 41, 59, 0.5);
+  padding: 20px;
+  border-radius: 22px;
+  margin-bottom: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.progressInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.progressLabel {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.progressValue {
+  color: #38bdf8;
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.progressTrack {
+  height: 8px;
+  background: #0f172a;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #2dd4bf);
+  border-radius: 10px;
+  transition: width 0.6s ease;
+}
+
+.programNav {
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.navHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #38bdf8;
+  margin-bottom: 20px;
+  padding-left: 4px;
+}
+
+.navTitle {
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #64748b;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: #475569;
+  font-style: italic;
+}
+
+.programNav::-webkit-scrollbar {
+  width: 5px;
+}
+
+.programNav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+@media (max-width: 1100px) {
+  .sidebar {
+    width: calc(100% - 40px);
+    min-width: unset;
+    margin: 20px auto;
+    height: auto;
+    position: relative;
+    top: 0;
+    border-radius: 24px;
+  }
+
+  .sidebarContent {
+    padding: 24px;
+    transition: all 0.4s ease;
+    height: 500px;
+  }
+
+  .mobileToggleBtn {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    top: 24px;
+    background: rgba(14, 165, 233, 0.15);
+    border: none;
+    color: #38bdf8;
+    padding: 10px;
+    border-radius: 12px;
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  .sidebar.closed {
+    height: 92px;
+    overflow: hidden;
+  }
+
+  .sidebar.closed .sidebarContent {
+    padding: 24px;
+  }
+
+  .sidebar.closed .progressContainer,
+  .sidebar.closed .programNav {
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: none;
+  }
+}

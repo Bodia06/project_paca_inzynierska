@@ -1,0 +1,188 @@
+.formLayout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+  padding: 60px;
+  align-items: start;
+}
+
+.avatarColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.avatarPreviewWrapper {
+  background: #0f172a;
+  padding: 8px;
+  border-radius: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 200px;
+  height: 200px;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.avatarPreviewWrapper:hover {
+  transform: translateY(-5px);
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  border-radius: 26px;
+  object-fit: cover;
+  display: block;
+}
+
+.uploadOverlay {
+  position: absolute;
+  inset: 8px;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.avatarPreviewWrapper:hover .uploadOverlay {
+  opacity: 1;
+}
+
+.uploadOverlay span {
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.inputsColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  width: 100%;
+}
+
+.gridFields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.fullWidth {
+  grid-column: span 2;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.submitBtn {
+  flex: 2;
+  padding: 16px;
+  border-radius: 16px;
+  border: none;
+  background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4);
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: #94a3b8;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitBtn:disabled,
+.cancelBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.errorMessage {
+  padding: 14px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #fca5a5;
+  border-radius: 14px;
+  font-size: 14px;
+}
+
+@media (max-width: 900px) {
+  .formLayout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 40px 24px;
+    justify-items: center;
+  }
+
+  .avatarColumn {
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+
+  .inputsColumn {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .formLayout {
+    padding: 30px 16px;
+  }
+
+  .avatarPreviewWrapper {
+    width: 160px;
+    height: 160px;
+  }
+
+  .gridFields {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .fullWidth {
+    grid-column: span 1;
+  }
+
+  .actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .submitBtn,
+  .cancelBtn {
+    width: 100%;
+    order: unset;
+    padding: 14px;
+  }
+
+  .cancelBtn {
+    order: 2;
+  }
+}

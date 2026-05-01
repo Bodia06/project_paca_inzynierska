@@ -1,0 +1,183 @@
+.forBeginnersSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.forBeginnersContainer {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  padding: 50px;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.imageWrapper {
+  flex: 1;
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.beginnerImg {
+  width: 100%;
+  height: auto;
+  border-radius: 24px;
+  display: block;
+  object-fit: cover;
+}
+
+.forBeginnersInfo {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.subTitle {
+  color: #0ea5e9;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.title {
+  color: #fff;
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  line-height: 1.2;
+  margin-bottom: 20px;
+}
+
+.text {
+  color: #94a3b8;
+  line-height: 1.6;
+  font-size: 1.05rem;
+  margin-bottom: 24px;
+}
+
+.text strong {
+  color: #38bdf8;
+}
+
+.highlightBox {
+  color: #e2e8f0;
+  font-size: 1rem;
+  padding: 16px 20px;
+  border-left: 4px solid #0ea5e9;
+  margin-bottom: 30px;
+  background: rgba(14, 165, 233, 0.05);
+  border-radius: 0 12px 12px 0;
+}
+
+.btnWrapper {
+  display: flex;
+}
+
+.startBtn,
+.welcomeUserBadge {
+  padding: 16px 32px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.startBtn {
+  background: #0ea5e9;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.startBtn:hover {
+  background: #0284c7;
+  transform: translateY(-2px);
+}
+
+.welcomeUserBadge {
+  background: rgba(14, 165, 233, 0.1);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  color: #38bdf8;
+}
+
+@media (max-width: 1024px) {
+  .forBeginnersContainer {
+    padding: 30px;
+    gap: 30px;
+  }
+}
+
+@media (max-width: 960px) {
+  .forBeginnersContainer {
+    flex-direction: column;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .imageWrapper {
+    width: 100%;
+    max-width: 400px;
+    min-width: 100%;
+  }
+
+  .forBeginnersInfo {
+    min-width: 100%;
+    align-items: center;
+  }
+
+  .highlightBox {
+    border-left: none;
+    border-top: 4px solid #0ea5e9;
+    border-radius: 0 0 12px 12px;
+    width: 100%;
+  }
+
+  .btnWrapper {
+    justify-content: center;
+    width: 100%;
+  }
+
+  .startBtn,
+  .welcomeUserBadge {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .forBeginnersSection {
+    padding: 20px 12px;
+  }
+
+  .forBeginnersContainer {
+    padding: 24px 16px;
+    border-radius: 24px;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .text,
+  .highlightBox {
+    font-size: 0.95rem;
+  }
+
+  .imageWrapper {
+    max-width: 100%;
+  }
+}

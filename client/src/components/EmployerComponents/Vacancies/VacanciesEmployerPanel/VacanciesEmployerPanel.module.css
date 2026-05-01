@@ -1,0 +1,145 @@
+.InfoManagerPanelWrapper {
+  width: 100%;
+  color: #f1f5f9;
+  position: relative;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.InfoManagerPanelWrapper > div:first-child {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.blurBackground {
+  filter: blur(10px);
+  transition: filter 0.3s ease;
+  pointer-events: none;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  background: rgba(30, 41, 59, 0.4);
+  backdrop-filter: blur(12px);
+  border-radius: 16px;
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(14, 165, 233, 0.1);
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.textGroup {
+  flex: 1;
+  min-width: 0;
+}
+
+.textGroup h2 {
+  font-size: 1.75rem;
+  color: #0ea5e9;
+  margin: 0 0 0.5rem 0;
+  line-height: 1.2;
+  word-wrap: break-word;
+}
+
+.textGroup p {
+  color: #94a3b8;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.createBtn {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  flex-shrink: 0;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.createBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4);
+}
+
+.panelContent {
+  width: 100%;
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 15px;
+  backdrop-filter: blur(8px);
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  background: #0f172a;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 24px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.6);
+  overflow-y: auto;
+}
+
+@media (max-width: 1024px) {
+  .panelHeader {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .InfoManagerPanelWrapper {
+    padding: 1rem;
+  }
+
+  .panelHeader {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.2rem;
+    padding: 1.5rem 1rem;
+  }
+
+  .createBtn {
+    width: 100%;
+    padding: 1rem;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .textGroup h2 {
+    font-size: 1.4rem;
+  }
+
+  .textGroup p {
+    font-size: 0.9rem;
+  }
+
+  .panelHeader {
+    margin-bottom: 1.5rem;
+  }
+}

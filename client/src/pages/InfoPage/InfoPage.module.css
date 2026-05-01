@@ -1,0 +1,137 @@
+.infoPageWrapper {
+  width: 100%;
+  padding: 110px 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainContainer {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.mainLayout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.filterSection {
+  width: 300px;
+  flex-shrink: 0;
+}
+
+.contentSection {
+  flex: 1;
+  min-width: 0;
+}
+
+.listWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 552px;
+}
+
+.infoList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.loadingState,
+.noDataState {
+  background: rgba(30, 41, 59, 0.4);
+  border-radius: 24px;
+  padding: 60px 20px;
+  min-height: 552px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(14, 165, 233, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.noDataIconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+  background: rgba(14, 165, 233, 0.05);
+  border: 1px solid rgba(14, 165, 233, 0.2);
+  margin-bottom: 2rem;
+  color: #0ea5e9;
+  animation: morph 8s ease-in-out infinite;
+}
+
+.noDataIcon {
+  font-size: 40px;
+  filter: drop-shadow(0 0 8px rgba(14, 165, 233, 0.4));
+}
+
+.noDataText {
+  color: #f1f5f9;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.noDataSub {
+  color: #94a3b8;
+  font-size: 1rem;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+.loadingText {
+  margin-top: 1rem;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes morph {
+  0%,
+  100% {
+    border-radius: 40% 60% 70% 30% / 40% 40% 60% 60%;
+  }
+  50% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@media (max-width: 1250px) {
+  .mainLayout {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filterSection {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .infoPageWrapper {
+    padding: 40px 16px;
+  }
+  .noDataText {
+    font-size: 1.25rem;
+  }
+}

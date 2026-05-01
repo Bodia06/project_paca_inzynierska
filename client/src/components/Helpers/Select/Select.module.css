@@ -1,0 +1,67 @@
+.inputGroup {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #94a3b8;
+  margin-bottom: 8px;
+  padding-left: 4px;
+}
+
+.selectField {
+  width: 100%;
+  background-color: #0f172a;
+  border: 1.5px solid #1e293b;
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #f8fafc;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2300d2ff'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 16px) center;
+  background-size: 18px;
+  padding-right: 45px;
+}
+
+.selectField:focus {
+  outline: none;
+  border-color: #00d2ff;
+  background-color: #131c31;
+  box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.15);
+}
+
+.selectField.inputError {
+  border-color: #fb7185;
+  background-color: rgba(251, 113, 133, 0.05);
+}
+
+.errorText {
+  position: absolute;
+  bottom: -20px;
+  left: 4px;
+  color: #fb7185;
+  font-size: 11px;
+  font-weight: 500;
+  pointer-events: none;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
