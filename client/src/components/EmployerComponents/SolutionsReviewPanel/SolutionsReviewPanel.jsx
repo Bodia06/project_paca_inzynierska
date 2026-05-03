@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchVacancies } from '../../../store/slices/vacancySlice';
+import { FiSearch } from 'react-icons/fi';
 import {
   acceptSolution,
   rejectSolution,
@@ -25,7 +25,6 @@ const SolutionsReviewPanel = () => {
   } = useSelector((state) => state.solutions);
 
   useEffect(() => {
-    dispatch(fetchVacancies({ myOnly: 'true', limit: 100, offset: 0 }));
     return () => dispatch(clearSolutionStatus());
   }, [dispatch]);
 
@@ -112,16 +111,22 @@ const SolutionsReviewPanel = () => {
             <div className={styles.successBanner}>{successMessage}</div>
           )}
           {error && <div className={styles.errorBanner}>{String(error)}</div>}
+
           {isVacanciesLoading && vacancies.length === 0 ? (
-            <div className={styles.loadingState}>
+            <section className={styles.loadingState}>
               <Spinner />
-              <p className={styles.loadingText}>Syncing with database...</p>
-            </div>
+              <p className={styles.loadingText}>Loading solutions...</p>
+            </section>
           ) : solutionsToReview.length === 0 ? (
-            <div className={styles.noDataCard}>
-              <div className={styles.noDataIcon}>!</div>
-              <p>No pending solutions found for your active vacancies.</p>
-            </div>
+            <section className={styles.noDataState}>
+              <div className={styles.noDataIconContainer}>
+                <FiSearch className={styles.noDataIcon} />
+              </div>
+              <h3 className={styles.noDataText}>No vacancies found</h3>
+              <p className={styles.noDataSub}>
+                Try changing your search criteria or check back later.
+              </p>
+            </section>
           ) : (
             <div className={styles.tableResponsive}>
               <table className={styles.reviewTable}>

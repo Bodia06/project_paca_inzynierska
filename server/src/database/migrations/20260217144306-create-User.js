@@ -60,11 +60,6 @@ module.exports = {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      rating: {
-        type: Sequelize.FLOAT,
-        allowNull: false,
-        defaultValue: 0,
-      },
     });
 
     await queryInterface.addConstraint('Users', {

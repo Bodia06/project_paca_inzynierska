@@ -7,7 +7,7 @@ function EmployerPage() {
   const [activeTab, setActiveTab] = useState('vacancies');
 
   return (
-    <section className={styles.moderationPageWrapper}>
+    <section className={styles.employerPageWrapper}>
       <aside className={styles.sidebar}>
         <nav className={styles.navMenu}>
           <button

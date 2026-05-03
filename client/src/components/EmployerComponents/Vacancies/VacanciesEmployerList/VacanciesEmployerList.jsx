@@ -11,9 +11,7 @@ function VacanciesEmployerList({ onEdit, offset, setOffset, limit, myOnly }) {
   const dispatch = useDispatch();
   const listTopRef = useRef(null);
 
-  const { items, count, isFetching, error } = useSelector(
-    (state) => state.vacancies
-  );
+  const { items, count, isFetching } = useSelector((state) => state.vacancies);
 
   useEffect(() => {
     const params = {
@@ -40,12 +38,6 @@ function VacanciesEmployerList({ onEdit, offset, setOffset, limit, myOnly }) {
 
   return (
     <section className={styles.container} ref={listTopRef}>
-      {error && !isFetching && (
-        <div className={styles.errorState}>
-          {typeof error === 'string' ? error : 'Error loading vacancies'}
-        </div>
-      )}
-
       <section className={styles.listWrapper}>
         {isFetching ? (
           <section className={styles.loadingState}>

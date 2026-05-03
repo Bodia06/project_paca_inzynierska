@@ -2,6 +2,7 @@
   padding: 40px 20px;
   background: radial-gradient(circle at 0% 0%, #1e293b 0%, #0f172a 100%);
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
   color: #f1f5f9;
@@ -205,8 +206,7 @@
 }
 
 .userStat,
-.userBalance,
-.userRatingValue {
+.userBalance {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -237,12 +237,6 @@
   letter-spacing: 0.05em;
 }
 
-.userMaxRating {
-  font-size: 16px;
-  color: #475569;
-  font-weight: 600;
-}
-
 .userBar {
   height: 6px;
   background: rgba(0, 0, 0, 0.3);
@@ -256,16 +250,6 @@
   background: linear-gradient(90deg, #0ea5e9, #6366f1);
   transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
   width: var(--rating-width, 0%);
-}
-
-.userLowRating {
-  color: #ef4444;
-}
-.userMidRating {
-  color: #f59e0b;
-}
-.userHighRating {
-  color: #10b981;
 }
 
 .userPrimaryBtn,
@@ -394,8 +378,7 @@
     padding: 0 16px 24px 16px;
   }
   .userStat,
-  .userBalance,
-  .userRatingValue {
+  .userBalance {
     font-size: 28px;
   }
   .userInfoRow {

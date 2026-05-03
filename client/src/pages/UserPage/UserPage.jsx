@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import classNames from 'classnames';
+import { useSelector, useDispatch } from 'react-redux';
+import { getPendingSubmissions } from '../../store/slices/submissionSlice';
 import CONSTANTS from '../../constants';
 import styles from './UserPage.module.css';
 
@@ -10,7 +11,18 @@ const getAvatarUrl = (avatar) => {
 };
 
 function UserPage() {
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+
+  const { count: pendingTasksCount } = useSelector(
+    (state) => state.submissions
+  );
+
+  useEffect(() => {
+    if (user && user.role === CONSTANTS.MODERATOR_ROLE) {
+      dispatch(getPendingSubmissions({ limit: 1, offset: 0 }));
+    }
+  }, [dispatch, user]);
 
   if (!user) {
     return (
@@ -19,14 +31,6 @@ function UserPage() {
       </div>
     );
   }
-
-  const ratingClass = classNames(styles.userRatingValue, {
-    [styles.userLowRating]: user.rating < 3,
-    [styles.userMidRating]: user.rating >= 3 && user.rating < 4,
-    [styles.userHighRating]: user.rating >= 4,
-  });
-
-  const ratingPercentage = (user.rating / 5) * 100;
 
   return (
     <section className={styles.userPage}>
@@ -103,9 +107,9 @@ function UserPage() {
             )}
             {user.role === CONSTANTS.MODERATOR_ROLE && (
               <div className={styles.userWidget}>
-                <span className={styles.userLabel}>Tickets Resolved</span>
+                <span className={styles.userLabel}>Check Tasks</span>
                 <div className={styles.userStat}>
-                  {user.moderationQueueCount || 0}{' '}
+                  {pendingTasksCount || 0}{' '}
                   <span className={styles.userUnit}>items</span>
                 </div>
                 <Link
@@ -116,19 +120,6 @@ function UserPage() {
                 </Link>
               </div>
             )}
-            <aside className={styles.userWidget}>
-              <span className={styles.userLabel}>Trust Score</span>
-              <div className={ratingClass}>
-                {user.rating}
-                <span className={styles.userMaxRating}>/5</span>
-              </div>
-              <div className={styles.userBar}>
-                <div
-                  className={styles.userFill}
-                  style={{ '--rating-width': `${ratingPercentage}%` }}
-                />
-              </div>
-            </aside>
             <Link
               to={CONSTANTS.APP_ROUTERS.SETTINGS}
               className={styles.userSettings}

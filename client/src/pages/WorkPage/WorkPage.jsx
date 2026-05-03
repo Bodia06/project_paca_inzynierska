@@ -76,7 +76,6 @@ function WorkPage() {
   };
 
   if (!user) return <Introduction />;
-  if (isAccessDenied) return <LockedView />;
 
   if (
     vacancies.length === 0 &&
@@ -84,9 +83,7 @@ function WorkPage() {
     !isFiltering &&
     currentOffset === 0
   ) {
-    return (
-      <div className={styles.noData}>No vacancies available at the moment.</div>
-    );
+    return <LockedView />;
   }
 
   return (

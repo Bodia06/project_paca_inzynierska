@@ -70,6 +70,7 @@ npm run dev
 ```bash
 cd server
 npm install
+npx sequelize-cli db:create
 npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 ```
@@ -79,13 +80,3 @@ npx sequelize-cli db:seed:all
 ```bash
 npm start
 ```
-
-## 🔐 Test Accounts (Seeds)
-
-After running the seeds, the following accounts are available for testing:
-
-| Role          | Email                | Password          |
-| :------------ | :------------------- | :---------------- |
-| **Moderator** | `moderator@test.com` | `!Moder123456`    |
-| **Employer**  | `employer@test.com`  | `!Employer123456` |
-| **Beginner**  | `beginner@test.com`  | `!Beginner123456` |
