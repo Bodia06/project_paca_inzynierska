@@ -1,17 +1,21 @@
-const fs = require('fs');
-const path = require('path');
 const createError = require('http-errors');
 const { Op } = require('sequelize');
 const { Info, User } = require('../database/models');
-const { STATIC_PATH } = require('../constants');
+const { uploadFile, deleteFile } = require('../services/s3Service');
 
 module.exports.createInfo = async (req, res, next) => {
   try {
     const { body, file, user } = req;
 
+    let imageName = 'default-language.png';
+    
+    if (file) {
+      imageName = await uploadFile(file, 'info');
+    }
+
     const newUpdate = await Info.create({
       ...body,
-      image: file ? file.filename : 'default-language.png',
+      image: imageName,
       userId: user.id,
     });
 
@@ -93,14 +97,18 @@ module.exports.updateInfo = async (req, res, next) => {
       return next(createError(404, 'Info not found'));
     }
 
-    if (file && info.image && info.image !== 'default-info.png') {
-      const oldImagePath = path.join(STATIC_PATH, 'images', 'info', info.image);
-      if (fs.existsSync(oldImagePath)) fs.unlinkSync(oldImagePath);
+    let imageName = info.image;
+
+    if (file) {
+      if (info.image && info.image !== 'default-language.png') {
+        await deleteFile(info.image, 'info');
+      }
+      imageName = await uploadFile(file, 'info');
     }
 
     const updatedData = {
       ...body,
-      image: file ? file.filename : info.image,
+      image: imageName,
     };
 
     await info.update(updatedData);
@@ -126,9 +134,8 @@ module.exports.deleteInfo = async (req, res, next) => {
       return next(createError(404, 'Info not found'));
     }
 
-    if (info.image && info.image !== 'default-info.png') {
-      const imagePath = path.join(STATIC_PATH, 'images', 'info', info.image);
-      if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath);
+    if (info.image && info.image !== 'default-language.png') {
+      await deleteFile(info.image, 'info');
     }
 
     await info.destroy();

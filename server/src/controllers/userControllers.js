@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const createError = require('http-errors');
 const { User } = require('../database/models');
 const { createToken } = require('../services/tokenService');
+const { uploadFile, deleteFile } = require('../services/s3Service');
 
 module.exports.userRegistration = async (req, res, next) => {
   try {
@@ -89,7 +90,13 @@ module.exports.userUpdate = async (req, res, next) => {
     const updateData = { ...req.body };
 
     if (req.file) {
-      updateData.avatar = req.file.filename;
+      const currentUser = await User.findByPk(userId);
+      
+      if (currentUser && currentUser.avatar) {
+        await deleteFile(currentUser.avatar, 'avatars');
+      }
+
+      updateData.avatar = await uploadFile(req.file, 'avatars');
     }
 
     await User.update(updateData, {

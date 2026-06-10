@@ -21,7 +21,7 @@ module.exports = {
   EMPLOYER_ROLE: 'employer',
   BEGINNER_ROLE: 'beginner',
   ///AUTH CONSTANTS
-  JWT_SECRET: process.env.JWT_SECRET || 'backup_secret_key',
+  JWT_SECRET: process.env.JWT_SECRET || 'super_secret_key_123456789_change_me',
   JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '24h',
   ///BCRYPT CONSTANTS
   SALT_ROUNDS: 10,
@@ -96,15 +96,13 @@ module.exports = {
       .max(255, 'Title too long')
       .matches(REGEX.TITLE, 'Title must start with an uppercase letter')
       .required('Title is required'),
+    submission_githubUrl: yup
+      .string()
+      .trim()
+      .url('Must be a valid URL')
+      .matches(REGEX.SUBMISSION_GITHUB_URL, 'Only GitHub links are allowed')
+      .required('GitHub URL is required'),
 
-    submission_githubUrl: yup.string({
-      githubUrl: yup
-        .string()
-        .trim()
-        .url('Must be a valid URL')
-        .matches(REGEX.SUBMISSION_GITHUB_URL, 'Only GitHub links are allowed')
-        .required('GitHub URL is required'),
-    }),
     submission_grade: yup
       .number()
       .typeError('Grade must be a number')

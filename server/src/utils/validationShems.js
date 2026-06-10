@@ -1,12 +1,12 @@
-import * as yup from 'yup';
-import CONSTANTS from '../constants.js';
+const yup = require('yup');
+const CONSTANTS = require('../constants');
 
-export const UserLoginSchema = yup.object({
+const UserLoginSchema = yup.object({
   email: CONSTANTS.BASE_RULES.user_email,
   password: CONSTANTS.BASE_RULES.user_password,
 });
 
-export const UserRegistrationSchema = yup.object({
+const UserRegistrationSchema = yup.object({
   firstName: CONSTANTS.BASE_RULES.user_name.required('First name is required'),
   lastName: CONSTANTS.BASE_RULES.user_name.required('Last name is required'),
   email: CONSTANTS.BASE_RULES.user_email,
@@ -26,47 +26,47 @@ export const UserRegistrationSchema = yup.object({
     .required('You must accept the Terms & Conditions'),
 });
 
-export const UserUpdateSchema = yup.object({
+const UserUpdateSchema = yup.object({
   firstName: CONSTANTS.BASE_RULES.user_name.required('First name is required'),
   lastName: CONSTANTS.BASE_RULES.user_name.required('Last name is required'),
   email: CONSTANTS.BASE_RULES.user_email,
   displayName: CONSTANTS.BASE_RULES.user_displayName,
 });
 
-export const InfoCreateSchema = yup.object({
+const InfoCreateSchema = yup.object({
   languageName: CONSTANTS.BASE_RULES.info_languageName,
   version: CONSTANTS.BASE_RULES.info_version,
   description: CONSTANTS.BASE_RULES.description,
 });
 
-export const InfoUpdateSchema = yup.object({
+const InfoUpdateSchema = yup.object({
   languageName: CONSTANTS.BASE_RULES.info_languageName,
   version: CONSTANTS.BASE_RULES.info_version,
   description: CONSTANTS.BASE_RULES.description,
 });
 
-export const TaskCreateSchema = yup.object({
+const TaskCreateSchema = yup.object({
   modul: CONSTANTS.BASE_RULES.task_modul,
   title: CONSTANTS.BASE_RULES.task_title,
   description: CONSTANTS.BASE_RULES.description,
 });
 
-export const TaskUpdateSchema = yup.object({
+const TaskUpdateSchema = yup.object({
   modul: CONSTANTS.BASE_RULES.task_modul,
   title: CONSTANTS.BASE_RULES.task_title,
   description: CONSTANTS.BASE_RULES.description,
 });
 
-export const SubmissionCreateSchema = yup.object({
+const SubmissionCreateSchema = yup.object({
   githubUrl: CONSTANTS.BASE_RULES.submission_githubUrl,
 });
 
-export const SubmissionGradeSchema = yup.object({
+const SubmissionGradeSchema = yup.object({
   grade: CONSTANTS.BASE_RULES.submission_grade,
   feedback: CONSTANTS.BASE_RULES.description,
 });
 
-export const PayoutSchema = yup.object().shape({
+const PayoutSchema = yup.object().shape({
   amount: yup
     .number()
     .transform((value, originalValue) =>
@@ -97,22 +97,39 @@ export const PayoutSchema = yup.object().shape({
     .required('Required'),
 });
 
-export const VacancyCreateSchema = yup.object({
+const VacancyCreateSchema = yup.object({
   title: CONSTANTS.BASE_RULES.vacancy_title,
   description: CONSTANTS.BASE_RULES.description,
   price: CONSTANTS.BASE_RULES.price,
 });
 
-export const VacancyUpdateSchema = yup.object({
+const VacancyUpdateSchema = yup.object({
   title: CONSTANTS.BASE_RULES.vacancy_title,
   description: CONSTANTS.BASE_RULES.description,
   price: CONSTANTS.BASE_RULES.price,
 });
 
-export const SolutionCreateSchema = yup.object().shape({
+const SolutionCreateSchema = yup.object().shape({
   githubLink: CONSTANTS.BASE_RULES.submission_githubUrl,
 });
 
-export const SolutionUpdateSchema = yup.object().shape({
+const SolutionUpdateSchema = yup.object().shape({
   githubLink: CONSTANTS.BASE_RULES.submission_githubUrl,
 });
+
+module.exports = {
+  UserLoginSchema,
+  UserRegistrationSchema,
+  UserUpdateSchema,
+  InfoCreateSchema,
+  InfoUpdateSchema,
+  TaskCreateSchema,
+  TaskUpdateSchema,
+  SubmissionCreateSchema,
+  SubmissionGradeSchema,
+  PayoutSchema,
+  VacancyCreateSchema,
+  VacancyUpdateSchema,
+  SolutionCreateSchema,
+  SolutionUpdateSchema,
+};

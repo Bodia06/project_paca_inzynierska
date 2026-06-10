@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { updateUser, clearError } from '../../store/slices/userSlice';
 import SettingsForm from '../../components/SettingsComponents/SettingsFrom/SettingsFrom';
-import Spinner from '../../components/Helpers/Spinner/Spinner'; // Імпортуємо ваш Spinner
+import Spinner from '../../components/Helpers/Spinner/Spinner';
 import SCHEMAS from '../../utils/validationSchems';
 import styles from './SettingsPage.module.css';
 

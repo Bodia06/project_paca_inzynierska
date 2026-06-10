@@ -19,8 +19,12 @@ import { IdIcon, LangIcon, VersionIcon } from './components/Icons/Icons';
 
 //---SERVER DATA---
 const isProduction = import.meta.env.MODE === 'production';
-const serverIP = '192.168.31.44';
+const serverIP = isProduction ? 'your-production-domain.com' : 'localhost';
 const serverPort = 5001;
+
+const minioIP = isProduction ? 'your-production-domain.com' : 'localhost';
+const minioPort = 9000; 
+const bucketName = 'my-bucket';
 
 //---REGEX DATA---
 const REGEX = {
@@ -40,14 +44,14 @@ export default {
   LOGO_SRC: '/staticImages/brand-logo.png',
   ACCESS_TOCKEN: 'accessToken',
   BASE_URL: `http://${serverIP}:${serverPort}/api/`,
-
-  //---APP IMAGES---
   PUBLIC_URL_AVATAR: isProduction
-    ? '/public/images/avatars/'
-    : `http://${serverIP}:${serverPort}/public/images/avatars/`,
+    ? `https://${minioIP}/${bucketName}/avatars/`
+    : `http://${minioIP}:${minioPort}/${bucketName}/avatars/`,
+
   INFO_IMAGE_PATH: isProduction
-    ? '/public/images/info/'
-    : `http://${serverIP}:${serverPort}/public/images/info/`,
+    ? `https://${minioIP}/${bucketName}/info/`
+    : `http://${minioIP}:${minioPort}/${bucketName}/info/`,
+
   INTRODUCTION_HOME_IMAGE_PATH: '/staticImages/introduction-image.png',
   EMPLOYER_HOME_IMAGE_PATH: '/staticImages/employers.jpg',
   BEGINNER_HOME_IMAGE_PATH: '/staticImages/beginner.jpg',

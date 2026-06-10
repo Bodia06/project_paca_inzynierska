@@ -1,24 +1,6 @@
 const multer = require('multer');
-const path = require('path');
-const fs = require('fs');
-const { STATIC_PATH } = require('../constants');
 
-const createStorage = (subFolder) =>
-  multer.diskStorage({
-    destination: (req, file, cb) => {
-      const imagesPath = path.join(STATIC_PATH, 'images', subFolder);
-
-      if (!fs.existsSync(imagesPath)) {
-        fs.mkdirSync(imagesPath, { recursive: true });
-      }
-
-      cb(null, imagesPath);
-    },
-    filename: (req, file, cb) => {
-      const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-      cb(null, `${uniquePrefix}${path.extname(file.originalname)}`);
-    },
-  });
+const storage = multer.memoryStorage();
 
 const fileFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image/')) {
@@ -28,12 +10,17 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-module.exports.uploadAvatar = multer({
-  storage: createStorage('avatars'),
+const uploadAvatar = multer({
+  storage,
   fileFilter,
 }).single('avatar');
 
-module.exports.uploadInfoImage = multer({
-  storage: createStorage('info'),
+const uploadInfoImage = multer({
+  storage,
   fileFilter,
 }).single('image');
+
+module.exports = {
+  uploadAvatar,
+  uploadInfoImage
+};
