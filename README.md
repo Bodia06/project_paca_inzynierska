@@ -22,12 +22,14 @@ This ecosystem combines the functionality of an educational portal and a job boa
 
 ### **Backend (Server)**
 
-- **Node.js & Express** — Server environment and framework.
-- **Sequelize (ORM)** — PostgreSQL database interaction.
-- **PostgreSQL** — Relational database.
-- **JWT (JSON Web Token)** — Secure authorization.
+- **Node.js (v18.x) & Express** — Server environment and scalable framework.
+- **Sequelize (ORM)** — PostgreSQL database interaction (Migrations, Seeders).
+- **PostgreSQL (v15.x)** — Relational database engine.
+- **MinIO Object Storage** — Self-hosted AWS S3 compatible system for managing static assets (avatars, program images).
+- **AWS SDK for JavaScript (v3)** — Native S3 clients for secure data upload and automated cloud cleanup.
+- **JWT (JSON Web Token)** — Secure role-based authorization.
 - **Bcrypt** — Password hashing.
-- **Multer** — File upload handling (e.g., user avatars).
+- **Multer** — File upload handling via memory buffers.
 
 ---
 
@@ -35,16 +37,31 @@ This ecosystem combines the functionality of an educational portal and a job boa
 
 ### **Core Database Entities**
 
-- **Users**: Stores user data with various roles.
-- **Banks**: System for simulating bank operations and balance verification.
-- **Vacancies**: Job postings from employers.
-- **Solutions**: Task solutions submitted by developers.
+- **Users**: Stores profile data, security parameters, and tracking balances.
+- **Banks**: System for simulating banking operations and balance verification.
+- **Vacancies**: Job postings managed from the Employer side.
+- **Solutions**: Freelance task submissions submitted by target developers.
+- **Tasks**: Curated assignment modules built for students.
+- **Infos**: Centralized system update and documentation logs.
 
 ### **Available Roles**
 
-1. **Beginner**: Complete learning tasks, submit solutions via GitHub, and track rating/balance.
-2. **Employer**: Create and moderate vacancies, review submissions, and hire developers.
-3. **Moderator**: Content control and system update verification.
+1. **Beginner**: Complete learning tasks, submit code solutions via GitHub links, and track earned balances.
+2. **Employer**: Create and fund active vacancies, review student submissions, and issue instant payouts.
+3. **Moderator**: Core content management, verification of code submissions, and handling platform updates.
+
+---
+
+## 🐋 Infrastructure Management (Docker Compose)
+
+The entire microservice architecture is orchestrated using **Docker** and **Docker Compose**. The application is divided into four isolated containers working inside a secure unified network:
+
+| Container Name     | Service                    | Exposed Port               | Volume / Data              |
+| :----------------- | :------------------------- | :------------------------- | :------------------------- |
+| `project_frontend` | React + Vite Development   | `5173`                     | Source Code Hot-Reloading  |
+| `project_backend`  | Express API Node Server    | `5001`                     | Environment Syncing        |
+| `project_postgres` | PostgreSQL Database Engine | `5432`                     | `pgdata` Persistent Volume |
+| `project_minio`    | MinIO Storage / S3 Engine  | `9000` (API) / `9001` (UI) | `miniodata` Asset Volume   |
 
 ---
 
@@ -65,7 +82,7 @@ npm install
 npm run dev
 ```
 
-### 2. Open Database and loading Seedes
+### 3. Open Database and loading Seedes
 
 ```bash
 cd server
@@ -75,8 +92,38 @@ npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 ```
 
-### 2. Setup the Server
+### 4. Setup the Server
 
 ```bash
 npm start
 ```
+
+### 5. How to Run and Test in Docker Containers
+
+Once your configuration is complete, starting the platform takes just one command. Open your terminal in the project root directory and run:
+
+```bash
+./start.sh
+```
+### 6. Test settings for .env
+# --- SERVER CONFIGURATION ---
+PORT=5001
+HOST=0.0.0.0
+NODE_ENV=development
+
+# --- SECURITY & AUTHENTICATION ---
+JWT_SECRET=super_secret_key_123456789_change_me
+JWT_EXPIRES_IN=24h
+
+# --- POSTGRESQL DATABASE CONFIGURATION ---
+DATABASE_USER_NAME=myuser
+DATABASE_PASSWORD=mypassword
+DATABASE_NAME=mydb
+DATABASE_HOST=postgres
+DATABASE_PORT=5432
+
+# --- MINIO / S3 CONFIGURATION ---
+MINIO_ENDPOINT_URL=http://minio:9000
+MINIO_ACCESS_KEY=minioadmin
+MINIO_SECRET_KEY=minioadminpassword
+MINIO_BUCKET_NAME=my-bucket
