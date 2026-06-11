@@ -1,5 +1,5 @@
-import { memo, useState, useEffect } from 'react';
-import { BookOpen, Layout, Menu, X } from 'lucide-react';
+import { memo, useState, useEffect, useMemo } from 'react';
+import { BookOpen, Layout, Menu, X, Search } from 'lucide-react';
 import { useTasks } from '../../../hooks/useTasks';
 import ModuleItem from '../ModuleItem/ModuleItem';
 import CONSTANTS from '../../../constants';
@@ -15,6 +15,7 @@ const Sidebar = memo(
     onToggleModule,
   }) => {
     const [isOpen, setIsOpen] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
     const { user } = useTasks();
 
     useEffect(() => {
@@ -27,8 +28,24 @@ const Sidebar = memo(
       return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const hasModules = Object.keys(groupedTasks).length > 0;
     const toggleSidebar = () => setIsOpen(!isOpen);
+
+    const filteredGroupedTasks = useMemo(() => {
+      if (!searchQuery.trim()) return groupedTasks;
+
+      const query = searchQuery.toLowerCase().trim();
+      const filtered = {};
+
+      Object.keys(groupedTasks).forEach((moduleKey) => {
+        if (moduleKey.toLowerCase().includes(query)) {
+          filtered[moduleKey] = groupedTasks[moduleKey];
+        }
+      });
+
+      return filtered;
+    }, [groupedTasks, searchQuery]);
+
+    const hasModules = Object.keys(filteredGroupedTasks).length > 0;
 
     return (
       <aside className={`${styles.sidebar} ${!isOpen ? styles.closed : ''}`}>
@@ -48,20 +65,42 @@ const Sidebar = memo(
               <span className={styles.brandName}>Learning Hub</span>
             </div>
           </article>
-          {user?.role === CONSTANTS.BEGINNER_ROLE && hasModules && (
-            <article className={styles.progressContainer}>
-              <div className={styles.progressInfo}>
-                <span className={styles.progressLabel}>My Progress</span>
-                <span className={styles.progressValue}>{progress}%</span>
-              </div>
-              <div className={styles.progressTrack}>
-                <div
-                  className={styles.progressFill}
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
-            </article>
-          )}
+          {user?.role === CONSTANTS.BEGINNER_ROLE &&
+            Object.keys(groupedTasks).length > 0 && (
+              <article className={styles.progressContainer}>
+                <div className={styles.progressInfo}>
+                  <span className={styles.progressLabel}>My Progress</span>
+                  <span className={styles.progressValue}>{progress}%</span>
+                </div>
+                <div className={styles.progressTrack}>
+                  <div
+                    className={styles.progressFill}
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
+              </article>
+            )}
+          <article className={styles.searchContainer}>
+            <div className={styles.searchWrapper}>
+              <Search size={18} className={styles.searchIcon} />
+              <input
+                type="text"
+                placeholder="Search module..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={styles.searchInput}
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className={styles.clearSearchBtn}
+                  aria-label="Clear search"
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+          </article>
           <nav className={styles.programNav}>
             <div className={styles.navHeader}>
               <Layout size={18} />
@@ -69,23 +108,27 @@ const Sidebar = memo(
             </div>
             <article className={styles.modulesList}>
               {hasModules ? (
-                Object.keys(groupedTasks)
+                Object.keys(filteredGroupedTasks)
                   .sort()
                   .map((moduleKey, index) => (
                     <ModuleItem
                       key={moduleKey}
                       indexNum={index + 1}
                       moduleTitle={moduleKey}
-                      tasks={groupedTasks[moduleKey]}
+                      tasks={filteredGroupedTasks[moduleKey]}
                       selectedTaskId={selectedTaskId}
-                      isExpanded={!!expandedModules[moduleKey]}
+                      isExpanded={!!expandedModules[moduleKey] || !!searchQuery}
                       onToggle={() => onToggleModule(moduleKey)}
                       isCollapsed={false}
                       onTaskSelect={onTaskSelect}
                     />
                   ))
               ) : (
-                <div className={styles.emptyState}>No modules found</div>
+                <div className={styles.emptyState}>
+                  {searchQuery
+                    ? 'No modules match your search'
+                    : 'No modules found'}
+                </div>
               )}
             </article>
           </nav>
