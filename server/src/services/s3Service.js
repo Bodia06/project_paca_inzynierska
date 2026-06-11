@@ -1,12 +1,14 @@
-const { 
-  S3Client, 
-  PutObjectCommand, 
-  CreateBucketCommand, 
+const {
+  S3Client,
+  PutObjectCommand,
+  CreateBucketCommand,
   PutBucketPolicyCommand,
   HeadBucketCommand,
-  DeleteObjectCommand
+  HeadObjectCommand,
+  DeleteObjectCommand,
 } = require('@aws-sdk/client-s3');
 const path = require('path');
+const fs = require('fs');
 
 const s3 = new S3Client({
   endpoint: process.env.MINIO_ENDPOINT_URL || 'http://minio:9000',
@@ -20,37 +22,76 @@ const s3 = new S3Client({
 
 const BUCKET_NAME = process.env.MINIO_BUCKET_NAME || 'my-bucket';
 
+const seedDefaultFiles = async () => {
+  const defaultImages = [
+    { filename: 'default-language.png', subFolder: 'info', mime: 'image/png' },
+  ];
+
+  for (const img of defaultImages) {
+    const fileKey = `${img.subFolder}/${img.filename}`;
+
+    try {
+      await s3.send(
+        new HeadObjectCommand({ Bucket: BUCKET_NAME, Key: fileKey })
+      );
+    } catch (error) {
+      if (
+        error.name === 'NotFound' ||
+        error.$metadata?.httpStatusCode === 404
+      ) {
+        const localPath = path.join('/app', 'static-seeds', img.filename);
+
+        if (fs.existsSync(localPath)) {
+          const fileBuffer = fs.readFileSync(localPath);
+
+          await s3.send(
+            new PutObjectCommand({
+              Bucket: BUCKET_NAME,
+              Key: fileKey,
+              Body: fileBuffer,
+              ContentType: img.mime,
+            })
+          );
+        }
+      }
+    }
+  }
+};
+
 const initMinio = async () => {
   try {
     await s3.send(new HeadBucketCommand({ Bucket: BUCKET_NAME }));
-    console.log(`[MinIO]: Bucket "${BUCKET_NAME}" already exists and is ready for use.`);
+    await seedDefaultFiles();
   } catch (error) {
     if (error.name === 'NotFound' || error.$metadata?.httpStatusCode === 404) {
-      console.log(`[MinIO]: Bucket "${BUCKET_NAME}" not found. Initializing creation...`);
-      
       await s3.send(new CreateBucketCommand({ Bucket: BUCKET_NAME }));
 
       const publicReadPolicy = {
-        Version: "2012-10-17",
+        Version: '2012-10-17',
         Statement: [
           {
-            Sid: "PublicReadGetObject",
-            Effect: "Allow",
-            Principal: "*",
-            Action: ["s3:GetObject"],
-            Resource: [`arn:aws:s3:::${BUCKET_NAME}/*`]
-          }
-        ]
+            Sid: 'PublicReadGetObject',
+            Effect: 'Allow',
+            Principal: '*',
+            Action: ['s3:GetObject'],
+            Resource: [`arn:aws:s3:::${BUCKET_NAME}/*`],
+          },
+        ],
       };
 
-      await s3.send(new PutBucketPolicyCommand({
-        Bucket: BUCKET_NAME,
-        Policy: JSON.stringify(publicReadPolicy)
-      }));
+      await s3.send(
+        new PutBucketPolicyCommand({
+          Bucket: BUCKET_NAME,
+          Policy: JSON.stringify(publicReadPolicy),
+        })
+      );
 
-      console.log(`[MinIO]: Bucket "${BUCKET_NAME}" has been successfully created and set to PUBLIC.`);
+      await seedDefaultFiles();
     } else {
-      console.error('[MinIO]: Error occurred during storage client initialization:', error);
+      console.error(
+        '[MinIO]: Error occurred during storage client initialization:',
+        error
+      );
     }
   }
 };
@@ -60,9 +101,8 @@ const uploadFile = async (file, subFolder = 'general') => {
 
   const uniquePrefix = Date.now() + '-' + Math.round(Math.random() * 1e9);
   const extension = path.extname(file.originalname);
-  
+
   const filename = `${uniquePrefix}${extension}`;
-  
   const fileKey = `${subFolder}/${filename}`;
 
   const params = {
@@ -73,23 +113,32 @@ const uploadFile = async (file, subFolder = 'general') => {
   };
 
   await s3.send(new PutObjectCommand(params));
-
   return filename;
 };
 
 const deleteFile = async (filename, subFolder = 'general') => {
   try {
-    if (!filename || filename === 'anon.png' || filename === 'anon.jpg' || filename === 'default-language.png') return;
-    
+    if (
+      !filename ||
+      filename === 'anon.png' ||
+      filename === 'anon.jpg' ||
+      filename === 'default-language.png'
+    )
+      return;
+
     const fileKey = `${subFolder}/${filename}`;
-    
-    await s3.send(new DeleteObjectCommand({
-      Bucket: BUCKET_NAME,
-      Key: fileKey,
-    }));
-    console.log(`[MinIO]: File successfully deleted from storage: ${fileKey}`);
+
+    await s3.send(
+      new DeleteObjectCommand({
+        Bucket: BUCKET_NAME,
+        Key: fileKey,
+      })
+    );
   } catch (err) {
-    console.error(`[MinIO]: Failed to delete file from MinIO: ${filename}`, err);
+    console.error(
+      `[MinIO]: Failed to delete file from MinIO: ${filename}`,
+      err
+    );
   }
 };
 
@@ -97,5 +146,5 @@ initMinio();
 
 module.exports = {
   uploadFile,
-  deleteFile
+  deleteFile,
 };
