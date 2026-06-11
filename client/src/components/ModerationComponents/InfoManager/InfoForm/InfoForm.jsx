@@ -103,7 +103,7 @@ const InfoForm = ({ editingInfo, onCancel }) => {
               <Input
                 as="textarea"
                 name="description"
-                placeholder="What's new in this update? Detailed changes..."
+                placeholder="What's new? You can use Markdown: [Link Text](https://link.com) and images: ![Alt text](https://image-url.com)"
                 className={styles.textArea}
               />
             </div>

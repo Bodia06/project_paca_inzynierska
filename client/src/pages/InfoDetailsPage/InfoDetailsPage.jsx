@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { CalendarDays, UserCircle, Hash, Info, Activity } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 import CONSTANTS from '../../constants';
 import styles from './InfoDetailsPage.module.css';
 
@@ -18,6 +19,14 @@ function InfoDetailsPage() {
     const timer = setTimeout(() => setIsLoaded(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  if (!info) {
+    return (
+      <section className={styles.pageWrapper}>
+        <div className={styles.loadingState}>Loading parameters...</div>
+      </section>
+    );
+  }
 
   const formattedDate = new Date(info.createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
@@ -91,10 +100,33 @@ function InfoDetailsPage() {
                 <h3>System Description</h3>
               </div>
               <div className={styles.descBox}>
-                <p>
-                  {info.description ||
-                    'Detailed logs are currently unavailable in the database.'}
-                </p>
+                {info.description ? (
+                  <ReactMarkdown
+                    components={{
+                      a: ({ ...props }) => (
+                        <a
+                          {...props}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.renderedLink}
+                        />
+                      ),
+                      img: ({ ...props }) => (
+                        <img
+                          {...props}
+                          className={styles.renderedInnerImage}
+                          alt={props.alt || 'System documentation asset'}
+                        />
+                      ),
+                    }}
+                  >
+                    {info.description}
+                  </ReactMarkdown>
+                ) : (
+                  <p>
+                    Detailed logs are currently unavailable in the database.
+                  </p>
+                )}
               </div>
             </div>
           </div>
