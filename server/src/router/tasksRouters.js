@@ -3,6 +3,7 @@ const { tasksControllers } = require('../controllers');
 const {
   authMiddlewares,
   usersRoleMiddlewares,
+  normalizeTaskModuleMiddlewares,
   validationMiddlewares,
   paginateMiddlerawes,
 } = require('../middlewares');
@@ -18,6 +19,7 @@ tasksRouters.use(authMiddlewares.checkToken);
 tasksRouters.post(
   '/',
   usersRoleMiddlewares.onlyForModerators,
+  normalizeTaskModuleMiddlewares.normalizeTaskModule,
   validationMiddlewares.validation(TaskCreateSchema),
   tasksControllers.createTask
 );
@@ -25,6 +27,7 @@ tasksRouters.post(
 tasksRouters.get(
   '/',
   paginateMiddlerawes.paginate,
+  normalizeTaskModuleMiddlewares.normalizeTaskModule,
   tasksControllers.getAllTasks
 );
 
@@ -33,6 +36,7 @@ tasksRouters.get('/:taskId', tasksControllers.getTaskById);
 tasksRouters.put(
   '/:taskId',
   usersRoleMiddlewares.onlyForModerators,
+  normalizeTaskModuleMiddlewares.normalizeTaskModule,
   validationMiddlewares.validation(TaskUpdateSchema),
   tasksControllers.updateTask
 );

@@ -10,6 +10,33 @@ import Input from '../../../Helpers/Input/Input';
 import SCHEMAS from '../../../../utils/validationSchems';
 import styles from './TasksForm.module.css';
 
+const normalizeModuleString = (modulName) => {
+  if (!modulName || typeof modulName !== 'string') return modulName;
+
+  const technologies = modulName.split(',');
+
+  const cleanedTechnologies = technologies
+    .map((tech) => {
+      const cleanTech = tech.trim().replace(/\s+/g, ' ');
+      if (!cleanTech) return null;
+      return cleanTech
+        .split(' ')
+        .map((word) => {
+          if (/^[+\-.#]+$/.test(word)) return word;
+
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        })
+        .join(' ');
+    })
+    .filter(Boolean);
+
+  const uniqueTechnologies = [...new Set(cleanedTechnologies)];
+
+  uniqueTechnologies.sort((a, b) => a.localeCompare(b));
+
+  return uniqueTechnologies.join(', ');
+};
+
 const TasksForm = ({ editingTask, onCancel }) => {
   const dispatch = useDispatch();
   const { isFetching, error } = useSelector((state) => state.task);
@@ -34,9 +61,16 @@ const TasksForm = ({ editingTask, onCancel }) => {
   };
 
   const handleSubmit = async (values) => {
+    const normalizedValues = {
+      ...values,
+      modul: normalizeModuleString(values.modul),
+    };
+
     const resultAction = editingTask
-      ? await dispatch(updateTask({ taskId: editingTask.id, data: values }))
-      : await dispatch(createTask(values));
+      ? await dispatch(
+          updateTask({ taskId: editingTask.id, data: normalizedValues })
+        )
+      : await dispatch(createTask(normalizedValues));
 
     if (
       updateTask.fulfilled.match(resultAction) ||
@@ -72,7 +106,7 @@ const TasksForm = ({ editingTask, onCancel }) => {
             </div>
           )}
           <div className={styles.row}>
-            <Input name="modul" placeholder="Module (e.g. React)" />
+            <Input name="modul" placeholder="Module (e.g. React, Java)" />
             <Input name="title" placeholder="Task Title" />
           </div>
           <div className={styles.inputGroup}>

@@ -6,3 +6,4 @@ module.exports.paginateMiddlerawes = require('./pagination');
 module.exports.uploadMiddlewares = require('./uploadFiles');
 module.exports.usersRoleMiddlewares = require('./checkUsersRole');
 module.exports.checkBankCardMiddlewares = require('./checkBankCard');
+module.exports.normalizeTaskModuleMiddlewares = require('./normalizeTaskModule');

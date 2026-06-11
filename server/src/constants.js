@@ -10,6 +10,7 @@ const REGEX = {
   INFO_VERSION: /^\d+\.\d+\.\d+$/,
   SUBMISSION_GITHUB_URL: /^https:\/\/github\.com\//,
   TITLE: /^[A-Z][A-Za-z0-9\s]*$/,
+  MODULE_TITLE: /^[A-Za-z0-9\s,+#.\-]+$/,
 };
 
 module.exports = {
@@ -87,7 +88,10 @@ module.exports = {
       .trim()
       .min(2, 'Module name too short')
       .max(100, 'Module name too long')
-      .matches(REGEX.TITLE, 'Modul must start with an uppercase letter')
+      .matches(
+        REGEX.MODULE_TITLE,
+        'Only English letters, numbers, spaces and symbols (, . + # -) are allowed'
+      )
       .required('Module is required'),
     task_title: yup
       .string()
@@ -96,6 +100,7 @@ module.exports = {
       .max(255, 'Title too long')
       .matches(REGEX.TITLE, 'Title must start with an uppercase letter')
       .required('Title is required'),
+
     submission_githubUrl: yup
       .string()
       .trim()
@@ -135,7 +140,7 @@ module.exports = {
       .test(
         'is-decimal',
         'Price cannot have more than 2 decimal places',
-        (val) => {
+        val => {
           if (val === undefined || val === null) return true;
           return /^\d+(\.\d{1,2})?$/.test(val.toString());
         }

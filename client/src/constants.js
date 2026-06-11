@@ -23,7 +23,7 @@ const serverIP = isProduction ? 'your-production-domain.com' : 'localhost';
 const serverPort = 5001;
 
 const minioIP = isProduction ? 'your-production-domain.com' : 'localhost';
-const minioPort = 9000; 
+const minioPort = 9000;
 const bucketName = 'my-bucket';
 
 //---REGEX DATA---
@@ -36,6 +36,7 @@ const REGEX = {
   INFO_VERSION: /^\d+\.\d+\.\d+$/,
   SUBMISSION_GITHUB_URL: /^https:\/\/github\.com\//,
   TITLE: /^[A-Z][A-Za-z0-9\s]*$/,
+  MODULE_TITLE: /^[A-Za-z0-9\s,+#.\-]+$/,
 };
 
 //---CONSTANTS---
@@ -243,7 +244,10 @@ export default {
       .trim()
       .min(2, 'Module name too short')
       .max(100, 'Module name too long')
-      .matches(REGEX.TITLE, 'Modul must start with an uppercase letter')
+      .matches(
+        REGEX.MODULE_TITLE,
+        'Only English letters, numbers, spaces and symbols (, . + # -) are allowed'
+      )
       .required('Module is required'),
     task_title: yup
       .string()
@@ -290,7 +294,7 @@ export default {
       .test(
         'is-decimal',
         'Price cannot have more than 2 decimal places',
-        (val) => {
+        val => {
           if (val === undefined || val === null) return true;
           return /^\d+(\.\d{1,2})?$/.test(val.toString());
         }
