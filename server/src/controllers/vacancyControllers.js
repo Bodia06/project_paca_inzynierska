@@ -33,7 +33,7 @@ module.exports.createVacancy = async (req, res, next) => {
 
 module.exports.getVacancies = async (req, res, next) => {
   try {
-    const { limit, offset } = req.pagination;
+    const { limit = 4, offset = 0 } = req.pagination || {};
 
     const { title, status, minPrice, myOnly } = req.query;
     const user = req.user;
@@ -62,13 +62,13 @@ module.exports.getVacancies = async (req, res, next) => {
       whereCondition.price = { [Op.gte]: Number(minPrice) };
     }
 
-    const { count, rows } = await Vacancy.findAndCountAll({
+    const result = await Vacancy.findAndCountAll({
       where: whereCondition,
       include: [
         {
           model: User,
           as: 'employer',
-          attributes: ['displayName', 'avatar', 'rating'],
+          attributes: ['displayName', 'avatar'],
         },
         {
           model: Solution,
@@ -77,13 +77,13 @@ module.exports.getVacancies = async (req, res, next) => {
             {
               model: User,
               as: 'beginner',
-              attributes: ['displayName', 'avatar', 'rating'],
+              attributes: ['displayName', 'avatar'],
             },
           ],
         },
       ],
-      limit,
-      offset,
+      limit: limit ? Number(limit) : undefined,
+      offset: offset ? Number(offset) : undefined,
       order: [
         [
           sequelize.literal(
@@ -96,11 +96,19 @@ module.exports.getVacancies = async (req, res, next) => {
       distinct: true,
     });
 
+    const rows = result?.rows || [];
+    const count = result?.count || 0;
+
     res.status(200).send({
       data: rows,
-      meta: { count },
+      meta: {
+        count,
+        limit: Number(limit),
+        offset: Number(offset),
+      },
     });
   } catch (err) {
+    console.error('VACANCY FETCH ERROR:', err);
     next(err);
   }
 };
@@ -122,7 +130,7 @@ module.exports.getVacancyById = async (req, res, next) => {
             {
               model: User,
               as: 'beginner',
-              attributes: ['displayName', 'avatar', 'rating'],
+              attributes: ['displayName', 'avatar'],
             },
           ],
         },
